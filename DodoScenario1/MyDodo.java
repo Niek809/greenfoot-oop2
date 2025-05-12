@@ -162,4 +162,84 @@ public class MyDodo extends Dodo
         turn180();
         return grain;
     }
+    
+    public void gotoEgg() {
+        while (!onEgg()) {
+            if (getX() >= getWorld().getWidth() - 1) {
+                System.out.println("Hier ligt geen ei!");
+                break;
+            }
+            move();
+        }
+
+        if (onEgg()) {
+            System.out.println("Ei gevonden!");
+        }
+    }
+    
+    public void walkToWorldEdge(){
+        while( ! borderAhead() ){
+            move();
+        }
+    }
+    
+    public void goBackToStartOfRowAndFaceBack () {
+        turn180();
+        walkToWorldEdge();
+        turn180();
+    }
+    
+    public void walkToWorldEdgeClimbingOverFence () {
+        while (!borderAhead()) {
+            if (fenceAhead()) {
+                climbOverFence();                
+            } else {
+                if (onNest()) {
+                    break;
+                }
+                move();
+                if (onNest()) {
+                    break;
+                }
+            }
+        }
+    }
+    
+    public void pickUpGrainsAndPrintCoordinates() {
+        while (!borderAhead()) {
+            if (onGrain()) {
+                System.out.println(" x: " + getX() + " Y: " + getY());
+            }
+            move();
+            if (onGrain()) {
+                System.out.println(" x: " + getX() + " Y: " + getY());
+            }
+        }
+    }
+    
+    public void stepOneCellBackwards () {
+        turn180();
+        move();
+        turn180();
+    }
+    
+    public void noDoubleEggs () {
+        while (!borderAhead()) {
+            if (onNest()) {
+                if (canLayEgg()) {
+                    layEgg();
+                }
+            }
+            move();
+            if (onNest()) {
+                if (canLayEgg()) {
+                    layEgg();
+                }
+            }
+        }
+    }
+    
+    public void walkAroundFencedArea () {
+        
+    }
 }
