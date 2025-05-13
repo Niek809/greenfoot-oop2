@@ -256,4 +256,38 @@ public class MyDodo extends Dodo
             }
         }
     }
+    
+    public void eggTrailToNest() {
+        while (!onNest()) {
+            if (eggAhead()) {
+                move();
+                hatchEgg();
+                if (!eggAhead()) {
+                    turnRight();
+                }
+            } else {
+                turn180();
+            } 
+            if (nestAhead()) {
+                move();
+                break;
+            }
+        }
+    }
+    
+    public void simpleMaze() {
+        while (!onNest()) {
+            if (!fenceAhead()) {
+                move();
+            } else {
+                turnRight();
+                if (!fenceAhead()) {
+                    move();
+                } else {
+                    turn180();
+                    move();
+                }
+            } 
+        }
+    }
 }
