@@ -290,4 +290,53 @@ public class MyDodo extends Dodo
             } 
         }
     }
+    
+    public void simpleMaze2() {
+        while (!onNest()) {
+            turnLeft();
+            if (!fenceAhead()) {
+                move();
+            } else {
+                turnRight();
+                if (!fenceAhead()) {
+                    move();
+                } else {
+                    turnRight();
+                    if (!fenceAhead()) {
+                        move();
+                    } else {
+                        turnRight();
+                    }
+                }
+            }
+        }  
+    }
+    
+    public void faceNorth() {
+        while (getDirection() !=NORTH) {
+            turnRight();
+        }
+    }
+    
+    public void faceEast() {
+        while (getDirection() !=EAST) {
+            turnRight();
+        }
+    }
+    
+    public void faceSouth() {
+        while (getDirection() !=SOUTH) {
+            turnRight();
+        }
+    }
+    
+    public void faceWest() {
+        while (getDirection() !=WEST) {
+            turnRight();
+        }
+    }
+    
+    public void goToLocation (int coordX , int coordY) {
+    
+    }
 }
