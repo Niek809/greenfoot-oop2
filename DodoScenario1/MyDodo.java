@@ -337,6 +337,42 @@ public class MyDodo extends Dodo
     }
     
     public void goToLocation (int coordX , int coordY) {
-    
+        if (validCoordinates(coordX, coordY)) {
+            while (!locationReached(coordX, coordY)) {
+                if (getX() < coordX) {
+                    faceEast();
+                    move();
+                } else if (getX() > coordX) {
+                    faceWest();
+                    move();
+                }
+                if (getY() < coordY) {
+                    faceSouth();
+                    move();
+                } else if (getY() > coordY) {
+                    faceNorth();
+                    move();
+                }
+                faceEast();
+            }
+        }
     }
+    
+    public boolean locationReached(int x, int y) {
+        if (getX() == x && getY() == y) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean validCoordinates(int x, int y) {
+        if (x > getWorld().getWidth()-1 || y > getWorld().getWidth()-1) {
+            showError ("Invalid Coordinates " );
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    
 }
