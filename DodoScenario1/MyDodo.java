@@ -374,5 +374,19 @@ public class MyDodo extends Dodo
         }
     }
     
-    
+    public int countEggsInRow() {
+        int totalEggs = 0;
+        while (!borderAhead()) {
+            if (onEgg()) {
+                totalEggs++;
+            }
+            move();
+        }
+        if (onEgg()) {
+                move();
+                totalEggs++;
+        }
+        goBackToStartOfRowAndFaceBack ();
+        return(totalEggs);
+    }
 }
