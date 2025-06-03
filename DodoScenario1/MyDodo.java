@@ -458,6 +458,33 @@ public class MyDodo extends Dodo
         return rowWithMax;
     }
     
-    
+    public void monumentOfEggs() {
+        int startX = getX();
+        int startY = getY();
+        int row = 0;
+        boolean klaar = false;
+        while (!klaar) {
+            goToLocation(startX, startY + row);
+            faceEast();
+            int column = 0;
+            while (validCoordinates(startX + column, startY + row)) {
+                if (column <= row) {
+                    if (canLayEgg()) {
+                        layEgg();
+                    }
+                }
+                if (!borderAhead()) {
+                    move();
+                    column++;
+                } else {
+                    break;
+                }
+            }   
+            row++;
+            if (!validCoordinates(startX, startY + row)) {
+                klaar = true;
+            }
+        }
+    }
 }
 
