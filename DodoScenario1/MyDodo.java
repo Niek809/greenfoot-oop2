@@ -389,4 +389,75 @@ public class MyDodo extends Dodo
         goBackToStartOfRowAndFaceBack ();
         return(totalEggs);
     }
+    
+    public void layTrailOfEggs(int coordX) {
+        if (coordX > getX()) {
+        } else if (coordX < getX()) {
+            turn180();
+        } else {
+            layEgg();
+            return;
+        }
+        layEgg();
+        while (getX() != coordX) {
+            if (borderAhead()) {
+                System.out.println("You are stuck!");
+                return;
+            }
+            move();
+            layEgg();
+        }
+    }
+    
+    public int countEggsInWorld(){
+        boolean end = false;
+        int totaleggs = 0;
+        int startx = getX();
+        int starty = getY();
+        goToLocation(0, 0);
+        while (!end) {
+            totaleggs = totaleggs + countEggsInRow();
+            turnRight();
+            if (borderAhead()) {
+                end = true;
+                break;
+            } else {
+                move();
+                turnLeft();
+            }
+        }
+        goToLocation(startx, starty);
+        return totaleggs;
+    }
+    
+    public int findRowWithMostEggs() {
+        boolean end = false;
+        int maxEggs = -1;
+        int rowWithMax = 0;
+        int currentRow = 0;
+        int startx = getX();
+        int starty = getY();
+        goToLocation(0, 0);
+        while (!end) {
+            int eggsInRow = countEggsInRow();
+            if (eggsInRow > maxEggs) {
+                maxEggs = eggsInRow;
+                rowWithMax = currentRow;
+            }
+            turnRight();
+            if (borderAhead()) {
+                end = true;
+            } else {
+                move();
+                currentRow++;
+                turnLeft();
+            }
+        }
+        goToLocation(startx, starty);
+        System.out.println("Rij met meeste eieren: " + rowWithMax);
+        return rowWithMax;
+    }
+    
+    
 }
+
