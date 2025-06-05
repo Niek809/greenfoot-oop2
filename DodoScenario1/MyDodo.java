@@ -487,30 +487,57 @@ public class MyDodo extends Dodo
         }
     }
     
-public void monumentOfEggs2() {
-    int eggsInRow = 1;
-    int startX = getX();
-    int startY = getY();
-    int worldWidth = getWorld().getWidth();
-    int worldHeight = getWorld().getHeight();
-    int row = 0;
-
-    while (startY + row < worldHeight && startX + eggsInRow - 1 < worldWidth) {
-        goToLocation(startX, startY + row);
-        faceEast();
-        int layed = 0;
-        while (layed < eggsInRow && !borderAhead()) {
-            if (canLayEgg()) {
-                layEgg();
+    public void monumentOfEggs2() {
+        int eggsInRow = 1;
+        int startX = getX();
+        int startY = getY();
+        int worldWidth = getWorld().getWidth();
+        int worldHeight = getWorld().getHeight();
+        int row = 0;
+        while (startY + row < worldHeight && startX + eggsInRow - 1 < worldWidth) {
+            goToLocation(startX, startY + row);
+            faceEast();
+            int layed = 0;
+            while (layed < eggsInRow && !borderAhead()) {
+                if (canLayEgg()) {
+                    layEgg();
+                }
+                layed++;
+                if (layed < eggsInRow && !borderAhead()) {
+                    move();
+                }
             }
-            layed++;
-            if (layed < eggsInRow && !borderAhead()) {
-                move();
-            }
+            eggsInRow *= 2;
+            row++;
         }
-        eggsInRow *= 2;
-        row++;
     }
-}
+    
+    public void monumentOfEggs3() {
+        int row = 0;
+        int startX = getX();
+        int startY = getY();
+        int worldWidth = getWorld().getWidth();
+        int worldHeight = getWorld().getHeight();
+        while (startY + row < worldHeight) {
+            int eggsInRow = 2 * row + 1; 
+            int rowY = startY + row;
+            int rowStartX = startX - row;
+            if (rowStartX < 0 || rowStartX + eggsInRow > worldWidth) {
+                break;
+            }
+            goToLocation(rowStartX, rowY);
+            faceEast();
+            for (int i = 0; i < eggsInRow; i++) {
+                if (canLayEgg()) {
+                    layEgg();
+                }
+                if (i < eggsInRow - 1 && !borderAhead()) {
+                    move();
+                }
+            }
+            row++;
+        }
+    }
+
 }
 
