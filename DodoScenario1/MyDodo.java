@@ -538,6 +538,30 @@ public class MyDodo extends Dodo
             row++;
         }
     }
-
+    
+    public double averageEggsPerRow() {
+        int totalEggs = 0;
+        int totalRows = 0;  
+        int startX = getX();
+        int startY = getY();
+        goToLocation(0, 0);
+        faceEast();
+        while (true) {
+            int eggsInRow = countEggsInRow();
+            totalEggs += eggsInRow;
+            totalRows++;
+            goToLocation(0, totalRows);
+            faceEast();
+            turnRight();
+            if (borderAhead()) {
+                break;
+            }
+            turnLeft();
+        }
+        goToLocation(startX, startY);
+        double average = (double) totalEggs / totalRows;
+        System.out.println("Gemiddeld aantal eieren per rij: " + average);
+        return average;
+    }   
 }
 
